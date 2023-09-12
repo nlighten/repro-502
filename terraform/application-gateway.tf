@@ -83,7 +83,7 @@ resource "azurerm_application_gateway" "repro_502" {
     frontend_ip_configuration_name = "public"
     frontend_port_name             = "http"
     protocol                       = "Http"
-    host_name                      = "https-backend.contonso.com"
+    host_name                      = "https-backend.contoso.com"
   }
 
   http_listener {
@@ -91,7 +91,7 @@ resource "azurerm_application_gateway" "repro_502" {
     frontend_ip_configuration_name = "public"
     frontend_port_name             = "http"
     protocol                       = "Http"
-    host_name                      = "http-backend.contonso.com"
+    host_name                      = "http-backend.contoso.com"
   }
 
   request_routing_rule {

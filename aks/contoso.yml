@@ -98,6 +98,28 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  - host: backend-http.contoso.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: contoso
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: backend-https.contoso.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: contoso
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
   tls:
   - hosts:
     - test.contoso.com
+    - backend-http.contoso.com
+    - backend-https.contoso.com

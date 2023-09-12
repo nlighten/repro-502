@@ -29,5 +29,5 @@ Wait until the Application Gateway backend healt turn green (can take up to 15 m
 
 ```
 cd ../jmeter
-./jmeter -n -t repro-502.jmx -f -l results.log -Jbackend_protocol=https -Jip_address=$(az network public-ip show -n pip-agw -g repro-502 --query ipAddress -o tsv)
+./jmeter -n -t repro-502.jmx -f -l results.log -Jfrontend_protocol=http -Jbackend_protocol=https -Jip_address=$(az network public-ip show -n pip-agw -g repro-502 --query ipAddress -o tsv)
 ```
