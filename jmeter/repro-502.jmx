@@ -155,7 +155,7 @@
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${__P(ip_address,20.234.213.156)}</stringProp>
-          <stringProp name="HTTPSampler.protocol">${__P(frontend_protocol,https)}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${__P(frontend_protocol,http)}</stringProp>
           <stringProp name="HTTPSampler.path">/</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
