@@ -1,5 +1,6 @@
 kubectl apply -f tls.yml
 kubectl apply -f contoso.yml
+kubectl apply -f custom-ingress-template.yml
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -14,4 +15,6 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
   --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-internal"=true \
   --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-internal-subnet"="AksSubnet" \
   --set controller.extraArgs.default-ssl-certificate="ingress-nginx/ingress-tls" \
-  --set controller.admissionWebhooks.enabled=false
+  --set controller.admissionWebhooks.enabled=false \
+  --set controller.customTemplate.configMapName=custom-ingress-template \
+  --set controller.customTemplate.configMapKey=custom-template

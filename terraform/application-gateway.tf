@@ -33,12 +33,17 @@ resource "azurerm_application_gateway" "repro_502" {
   }
 
   backend_address_pool {
-    name         = "aks"
+    name         = "aks-lb"
     ip_addresses = ["10.10.1.250"]
   }
 
+  backend_address_pool {
+    name         = "aks-direct"
+    ip_addresses = ["10.10.1.4", "10.10.1.5", "10.10.1.6"]
+  }
+
   backend_http_settings {
-    name                           = "aks-https"
+    name                           = "aks-https-lb"
     host_name                      = "test.contoso.com"
     cookie_based_affinity          = "Disabled"
     port                           = 443
@@ -49,10 +54,31 @@ resource "azurerm_application_gateway" "repro_502" {
   }
 
   backend_http_settings {
-    name                  = "aks-http"
+    name                  = "aks-http-lb"
     host_name             = "test.contoso.com"
     cookie_based_affinity = "Disabled"
     port                  = 80
+    protocol              = "Http"
+    request_timeout       = 60
+    probe_name            = "aks-http"
+  }
+
+  backend_http_settings {
+    name                           = "aks-https-direct"
+    host_name                      = "test.contoso.com"
+    cookie_based_affinity          = "Disabled"
+    port                           = 31291
+    protocol                       = "Https"
+    request_timeout                = 60
+    trusted_root_certificate_names = ["self-signed-root"]
+    probe_name                     = "aks-https"
+  }
+
+  backend_http_settings {
+    name                  = "aks-http-direct"
+    host_name             = "test.contoso.com"
+    cookie_based_affinity = "Disabled"
+    port                  = 31701
     protocol              = "Http"
     request_timeout       = 60
     probe_name            = "aks-http"
@@ -79,38 +105,74 @@ resource "azurerm_application_gateway" "repro_502" {
   }
 
   http_listener {
-    name                           = "https-backend-contoso-com"
+    name                           = "https-backend-contoso-com-lb"
     frontend_ip_configuration_name = "public"
     frontend_port_name             = "http"
     protocol                       = "Http"
-    host_name                      = "https-backend.contoso.com"
+    host_name                      = "https-backend-lb.contoso.com"
   }
 
   http_listener {
-    name                           = "http-backend-contoso-com"
+    name                           = "http-backend-contoso-com-lb"
     frontend_ip_configuration_name = "public"
     frontend_port_name             = "http"
     protocol                       = "Http"
-    host_name                      = "http-backend.contoso.com"
+    host_name                      = "http-backend-lb.contoso.com"
+  }
+
+
+  http_listener {
+    name                           = "https-backend-contoso-com-direct"
+    frontend_ip_configuration_name = "public"
+    frontend_port_name             = "http"
+    protocol                       = "Http"
+    host_name                      = "https-backend-direct.contoso.com"
+  }
+
+  http_listener {
+    name                           = "http-backend-contoso-com-direct"
+    frontend_ip_configuration_name = "public"
+    frontend_port_name             = "http"
+    protocol                       = "Http"
+    host_name                      = "http-backend-direct.contoso.com"
   }
 
   request_routing_rule {
-    name                       = "https-backend-contoso-com"
+    name                       = "https-backend-contoso-com-lb"
     priority                   = 1000
     rule_type                  = "Basic"
-    http_listener_name         = "https-backend-contoso-com"
-    backend_address_pool_name  = "aks"
-    backend_http_settings_name = "aks-https"
+    http_listener_name         = "https-backend-contoso-com-lb"
+    backend_address_pool_name  = "aks-lb"
+    backend_http_settings_name = "aks-https-lb"
   }
 
   request_routing_rule {
-    name                       = "http-backend-contoso-com"
+    name                       = "http-backend-contoso-com-lb"
     priority                   = 1010
     rule_type                  = "Basic"
-    http_listener_name         = "http-backend-contoso-com"
-    backend_address_pool_name  = "aks"
-    backend_http_settings_name = "aks-http"
+    http_listener_name         = "http-backend-contoso-com-lb"
+    backend_address_pool_name  = "aks-lb"
+    backend_http_settings_name = "aks-http-lb"
   }
+
+  request_routing_rule {
+    name                       = "https-backend-contoso-com-direct"
+    priority                   = 1020
+    rule_type                  = "Basic"
+    http_listener_name         = "https-backend-contoso-com-direct"
+    backend_address_pool_name  = "aks-direct"
+    backend_http_settings_name = "aks-https-direct"
+  }
+
+  request_routing_rule {
+    name                       = "http-backend-contoso-com-direct"
+    priority                   = 1030
+    rule_type                  = "Basic"
+    http_listener_name         = "http-backend-contoso-com-direct"
+    backend_address_pool_name  = "aks-direct"
+    backend_http_settings_name = "aks-http-direct"
+  }
+
 
   trusted_root_certificate {
     name = "self-signed-root"
