@@ -87,7 +87,7 @@ tail -f results.log | grep -v OK
 ## Tested scenario's
 So far we tested the following scenario's:
 
-|Sku | Netork Plugin | Disk Type |Backend Protocol | Backend Type | Result | Other | Comment |
+|Sku | Netork Plugin | Disk Type |Backend Protocol | Backend Type | Other | Result | Comment |
 |----|---------------|-----------|-----------------|--------------|--------|-------|---------|
 |Standard_D4s_v5| kubenet | Managed|https| lb | - | NOK | `502 Bad Gateway` and `org.apache.http.ConnectionClosedException` errors |
 |Standard_D4s_v5| kubenet | Managed|https| direct | - |OK | No errors |
