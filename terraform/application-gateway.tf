@@ -39,7 +39,7 @@ resource "azurerm_application_gateway" "repro_502" {
 
   backend_address_pool {
     name         = "aks-direct"
-    ip_addresses = ["10.10.1.4", "10.10.1.5", "10.10.1.6"]
+    ip_addresses = ["10.10.1.7", "10.10.1.8", "10.10.1.9"]
   }
 
   backend_http_settings {
