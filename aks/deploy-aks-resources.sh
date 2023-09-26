@@ -15,3 +15,7 @@ helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
   --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-internal-subnet"="AksSubnet" \
   --set controller.extraArgs.default-ssl-certificate="ingress-nginx/ingress-tls" \
   --set controller.admissionWebhooks.enabled=false
+  # --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-health-probe-request-path="/healthz" \
+  # --set controller.service.annotations."service\.beta\.kubernetes\.io/port_443_no_probe_rule"=true \
+ 
+

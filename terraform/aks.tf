@@ -28,6 +28,7 @@ resource "azurerm_kubernetes_cluster" "repro_502" {
   network_profile {
     network_plugin      = var.aks_network_plugin
     network_plugin_mode = var.aks_network_plugin == "azure" ? "overlay" : null
+    outbound_type = "userAssignedNATGateway"
   }
 
 }
