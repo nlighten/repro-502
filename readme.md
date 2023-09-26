@@ -95,6 +95,7 @@ So far we tested the following scenario's:
 |Standard_D4s_v5| kubenet | Managed|http| direct | -| OK | No errors |
 |Standard_D4s_v5 | azure | Managed|https| lb | -| NOK | `502 Bad Gateway` and `org.apache.http.ConnectionClosedException` errors |
 |Standard_D4s_v5 | azure | Managed|https| lb | `net_netfilter_nf_conntrack_max` = 262144 | NOK | `502 Bad Gateway` and `org.apache.http.ConnectionClosedException` errors |
+|Standard_D4s_v5 | azure | Managed|https| lb | `outboundType` = `userAssignedNATGateway` | NOK | `502 Bad Gateway` errors |
 |Standard_D8s_v3| kubenet | Managed|https| lb | -| OK | No errors |
 |Standard_D8s_v3| kubenet | Ephemeral|https| lb | - | OK | No errors |
 
