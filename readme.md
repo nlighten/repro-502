@@ -97,6 +97,12 @@ So far we tested the following scenario's:
 |Standard_D4s_v5 | azure | Managed|https| lb | `net_netfilter_nf_conntrack_max` = 262144 | NOK | `502 Bad Gateway` and `org.apache.http.ConnectionClosedException` errors |
 |Standard_D8s_v3| kubenet | Managed|https| lb | -| OK | No errors |
 |Standard_D8s_v3| kubenet | Ephemeral|https| lb | - | OK | No errors |
+|Standard_D4ds_v5| kubenet | Managed|https| lb | - | NOK | `502 Bad Gateway` |
+|Standard_D4ds_v5| kubenet | Ephemeral|https| lb | - | NOK | `502 Bad Gateway` |
+|Standard_D4s_v3| kubenet | Managed|https| lb | - | OK | No errors  |
+|Standard_D4as_v5| kubenet | Managed|https| lb | - | OK | No errors |
+|Standard_D4ads_v5| kubenet | Emphemeral|https| lb | - | OK | No errors |
+|Standard_B2ms| kubenet | Managed|https| lb | - | OK | No errors |
 
 
 
